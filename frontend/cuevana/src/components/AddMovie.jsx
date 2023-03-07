@@ -100,10 +100,10 @@ function AddMovie() {
     function enviar(){
         //crear json con nombres de csv
         const json = {
-            pathactor: csvactor,
-            pathpelicula: csvpelicula,
-            pathreparto: csvreparto,
-            pathrecurso: csvrecurso
+            pathactor: '../entradas/'+csvactor,
+            pathpelicula: '../entradas/'+csvpelicula,
+            pathreparto: '../entradas/'+csvreparto,
+            pathrecurso: '../entradas/'+csvrecurso
         }
         console.log(json);
         //enviar json a backend a traves de metodo post
