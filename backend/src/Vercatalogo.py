@@ -20,10 +20,11 @@ def vercatalogo():
             for fila in result:
                 atributos = {'nombre': fila[0], 'director' : fila[1], 'anio' : fila[2], 'resumen' : fila[3], 'poster' : fila[4]}
                 templist.append(atributos)
-            return jsonify({'res': templist})
             # Siempre cerrar la conexión a la base de datos
             if connection:
                 connection.close()
+            return jsonify({'res': templist})
+
     except Exception as ex:
             # Siempre cerrar la conexión a la base de datos
         if connection:
