@@ -1,0 +1,4 @@
+.tablediv {
+    height: 200px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+  }
