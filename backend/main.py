@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from src.Vercatalogo import vercatalogo
 from src.Cargamasiva import cargamasiva
+from src.AddUser import add_user
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -17,6 +18,14 @@ def ver_catalogo():
 @app.route('/Cargamasiva', methods=['POST'])
 def carga_masiva():
     resprev = cargamasiva(request)
+    response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para agregar un usuario
+@app.route('/register', methods=['POST'])
+def agregar_usuario():
+    resprev = add_user(request)
     response = jsonify(resprev)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
