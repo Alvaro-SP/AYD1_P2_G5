@@ -11,7 +11,7 @@ def vercatalogo():
         with connection.cursor() as cursor:
             # Read a single record
             sql = '''
-                SELECT nombre, director, anio, resumen, poster  FROM movies
+                SELECT nombre, director, anio, resumen, poster  FROM movie
             '''
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -27,6 +27,7 @@ def vercatalogo():
 
     except Exception as ex:
             # Siempre cerrar la conexión a la base de datos
+        print(ex)
         if connection:
             connection.close()
         return jsonify({'res': False})
