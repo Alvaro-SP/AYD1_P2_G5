@@ -1,5 +1,5 @@
 import mysql.connector
-
+import bcrypt
 
 def log_user(request):
     # Parsear data
@@ -8,7 +8,6 @@ def log_user(request):
     # Capturar datos
     email = (data['email']).lower()
     password = data['pass']
-    # ? Cifrar contraseña
 
     # Intentar conexión con la base de datos
     try:
@@ -47,7 +46,7 @@ def log_user(request):
     # Verificar si el usuario existe
     if user:
         # Verificar si la contraseña es correcta
-        if user[4] == password:
+        if bcrypt.checkpw(password.encode('utf-8'), user[4].encode('utf-8')):
             # Retornar usuario
             return {
                 "res": True,
