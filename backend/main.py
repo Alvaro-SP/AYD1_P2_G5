@@ -3,6 +3,7 @@ from src.Vercatalogo import vercatalogo
 from src.Cargamasiva import cargamasiva
 from src.AddUser import add_user
 from src.LogUser import log_user
+from src.AddWatchlist import addwatchlist
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -37,6 +38,13 @@ def agregar_usuario():
 def login():
     resprev = log_user(request)
     response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para agregar a la lista WATCHLIST
+@app.route('/addwatchlist', methods=['POST'])
+def add_watchlist():
+    response = addwatchlist(request)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
