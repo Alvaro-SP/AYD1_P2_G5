@@ -1,15 +1,15 @@
+from src.EncryptPass import encrypt_pass
 import mysql.connector
 
-def add_user(data):
+def add_user(request):
     # Parsear data
-    # data = request.get_json()
+    data = request.get_json()
     
     # Capturar datos
     name = data['name']
     lastname = data['lastname']
-    email = data['email']
-    password = data['pass']
-    # ? Cifrar contraseña
+    email = (data['email']).lower()
+    password = encrypt_pass(data['pass'])
     
     # Intentar conexión con la base de datos
     try:
@@ -84,12 +84,3 @@ def add_user(data):
             "email": user[3],
         }
     }
-
-
-#! Prueba
-# print(add_user({
-#     "name": "Juan",
-#     "lastname": "Perez",
-#     "email": "algo@ejemplo.com",
-#     "pass": "123456"
-# }))

@@ -1,7 +1,12 @@
 import pymysql #pyMySQL is a python library for connecting to a MySQL database server from Python.This module has lots of features like it mad CRUD operations simple.
 import pymysql.cursors
 from flask import jsonify
-def vercatalogo():
+
+def addwatchlist(request):
+    # Obtener el JSON enviado por el cliente
+    data = request.get_json()
+    idUser = data['iduser']
+    idMovie = data['idmovie']
     #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
     connection = pymysql.connect(host='localhost',user='myuser',password='24122001.',db='dbayd')
                         # charset='utf8mb4',
@@ -11,19 +16,14 @@ def vercatalogo():
         with connection.cursor() as cursor:
             # Read a single record
             sql = '''
-                SELECT nombre, director, anio, resumen, poster,idmovie  FROM movie
+                INSERT INTO watchlist (user_iduser, movie_idmovie) VALUES (%s, %s)
             '''
-            cursor.execute(sql)
-            result = cursor.fetchall()
-            #print(result)
-            templist = []
-            for fila in result:
-                atributos = {'id': fila[5], 'nombre': fila[0], 'director' : fila[1], 'anio' : fila[2], 'resumen' : fila[3], 'poster' : fila[4]}
-                templist.append(atributos)
+            cursor.execute(sql, (idUser, idMovie))
             # Siempre cerrar la conexión a la base de datos
+            connection.commit()
             if connection:
                 connection.close()
-            return jsonify({'res': templist})
+            return jsonify({'res': True})
 
     except Exception as ex:
             # Siempre cerrar la conexión a la base de datos
