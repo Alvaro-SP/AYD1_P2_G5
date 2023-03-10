@@ -1,0 +1,14 @@
+.col {
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+}
+.rowButton {
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+.card:hover {
+    border: solid 3px hsla(0, 0%, 98%, 0.35);
+}
