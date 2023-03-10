@@ -4,6 +4,7 @@ from src.Cargamasiva import cargamasiva
 from src.AddUser import add_user
 from src.LogUser import log_user
 from src.AddWatchlist import addwatchlist
+from src.VerWatchlist import verwatchlist
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -45,6 +46,13 @@ def login():
 @app.route('/addwatchlist', methods=['POST'])
 def add_watchlist():
     response = addwatchlist(request)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para ver la lista de WATCHLIST de un usuario dado su ID
+@app.route('/verwatchlist', methods=['POST'])
+def ver_watchlist():
+    response = verwatchlist(request)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
