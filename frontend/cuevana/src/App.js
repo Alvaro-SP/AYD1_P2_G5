@@ -5,8 +5,9 @@ import { Inicio } from './components/Inicio';
 function App() {
   return (
     <div className="App">
+      <Inicio></Inicio>
     </div>
-    <Inicio />
+    
   );
 }
 
