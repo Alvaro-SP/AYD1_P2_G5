@@ -9,6 +9,7 @@ function App() {
     {/* <Inicio /> */}
     <AddMovie />
     </div>
+    
   );
 }
 
