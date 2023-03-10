@@ -1,13 +1,13 @@
 import mysql.connector
 
-def add_user(data):
+def add_user(request):
     # Parsear data
-    # data = request.get_json()
+    data = request.get_json()
     
     # Capturar datos
     name = data['name']
     lastname = data['lastname']
-    email = data['email']
+    email = (data['email']).lower()
     password = data['pass']
     # ? Cifrar contraseña
     
@@ -84,12 +84,3 @@ def add_user(data):
             "email": user[3],
         }
     }
-
-
-#! Prueba
-# print(add_user({
-#     "name": "Juan",
-#     "lastname": "Perez",
-#     "email": "algo@ejemplo.com",
-#     "pass": "123456"
-# }))
