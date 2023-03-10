@@ -1,14 +1,43 @@
+.container-fluid {
+  background: linear-gradient(#261A28, 90%, #5F233D);
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.page-link {
+  background-color: transparent;
+  color: white;
+}
+
 .col {
-    display: flex;
-    justify-content: center;
-    padding: 3%;
+  display: flex;
+  justify-content: center;
+  padding: 3%;
 }
 .rowButton {
-    display: flex;
-    justify-content: center;
-    padding: 5%;
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+}
+
+.card {
+  width: 18rem;
+  background-color: transparent;
+  backdrop-filter: blur(15px);
+  height: 525px;
 }
 
 .card:hover {
-    border: solid 3px hsla(0, 0%, 98%, 0.35);
+  border: solid 1px hsla(0, 0%, 98%, 0.5);
+}
+
+.card-title {
+    text-align: center;
+    padding-bottom: 10%;
+    padding-top: 10%;
+}
+
+i {
+  padding-right: 5%;
 }

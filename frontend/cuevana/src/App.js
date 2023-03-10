@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { Inicio } from './components/Inicio';
+import { Inicio } from './components/Inicio';
 import {AddMovie} from './components/AddMovie';
 import { Watchlist } from './components/Watchlist';
 
