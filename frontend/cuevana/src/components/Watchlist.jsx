@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import "../styles/ListaPelicula.css";
 import axios from "axios";
-import toast from "react-hot-toast";
-import "../styles/Watchlist.css";
+import toast, { Toaster } from "react-hot-toast";
+import Pelicula from "./Pelicula";
 
-export function Watchlist({ user }) {
+export default function ListaPelicula({ user }) {
   const [listado, setListado] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [busqueda, setBusqueda] = useState("");
+
+  const cerrarsesion = () => {
+    localStorage.setItem("ingreso", false);
+    localStorage.setItem("user", none);
+  };
   useEffect(() => {
     getPeliculas();
   }, []);
 
   const getPeliculas = async () => {
-    const res = await axios.get("http://localhost:5000/verwatchlist"); // AGREGAR VAINAS PARA LA PETICION
+    const res = await axios.post("http://localhost:5000/verwatchlist", {
+      iduser: user,
+    });
     if (res.data.res !== false) {
       setListado(res.data.res);
       setLoading(true);
+      console.log(res.data, res);
     } else {
       toast.error("Error en la base", {
         position: "top-right",
@@ -25,6 +35,12 @@ export function Watchlist({ user }) {
         },
       });
     }
+  };
+
+  const filteredPeliculas = () => {
+    return listado.filter((peli) => {
+      return peli.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    });
   };
 
   if (!loading) {
@@ -51,7 +67,7 @@ export function Watchlist({ user }) {
           <input
             className="form-control form-control-dark w-100 rounded-0 border-0"
             type="text"
-            placeholder="Search"
+            placeholder="Buscar"
             aria-label="Search"
           />
           <div className="navbar-nav">
@@ -82,7 +98,7 @@ export function Watchlist({ user }) {
 
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-dark wi text-white">
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Watchlist</h1>
+            <h1 className="h2">Peliculas</h1>
           </div>
         </main>
       </>
@@ -113,10 +129,12 @@ export function Watchlist({ user }) {
             type="text"
             placeholder="Search"
             aria-label="Search"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
           />
           <div className="navbar-nav">
             <div className="nav-item text-nowrap">
-              <a className="nav-link px-3" href="#!">
+              <a className="nav-link px-3" href="#!" onClick={cerrarsesion}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -142,102 +160,16 @@ export function Watchlist({ user }) {
 
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 wi text-white">
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Watchlist</h1>
+            <h1 className="h2">Peliculas</h1>
           </div>
           <div className="d-flex flex-wrap">
-            <div className="card card-size">
-              <img
-                src="https://static.cinepolis.com/img/peliculas/41658/1/1/41658.jpg"
-                className="card-img-top"
-                alt="..."
+            {filteredPeliculas().map((película, index) => (
+              <Pelicula
+                imagen={película.poster}
+                titulo={película.nombre}
+                index={index}
               />
-              <div className="card-img-overlay bg-dark cuerpo">
-                <h5 className="card-text">Demon slayer</h5>
-                <p className="card-text" style={{ marginTop: "5%" }}>
-                  Score
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-star-fill"
-                    viewBox="0 0 16 16"
-                    style={{
-                      marginLeft: "5%",
-                    }}
-                  >
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-star-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-star-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-star-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-star-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                  </svg>
-                </p>
-                <div className="d-flex justify-content-center">
-                  <a className="btn btn-light" href="#!">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-bookmark-heart-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z" />
-                    </svg>
-                  </a>
-                  <a className="btn btn-info" href="#!">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-info-circle"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="row">
             <ul
@@ -301,6 +233,8 @@ export function Watchlist({ user }) {
             </ul>
           </div>
         </main>
+
+        <Toaster position="top-right" />
       </>
     );
   }
