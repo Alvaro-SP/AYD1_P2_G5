@@ -2,12 +2,39 @@ import { useEffect, useState } from 'react'
 import '../styles/ListaPelicula.css'
 import axios from 'axios'
 import toast from "react-hot-toast";
+import Pelicula from './Pelicula';
 
 export default function ListaPelicula() {
     const [listado, setListado] = useState([])
     const [loading, setLoading] = useState(true)
+    const [busqueda, setBusqueda] = useState("")
+
+    const peliculas = [
+        {
+            titulo: "El Padrino",
+            imagen: "https://img2.rtve.es/i/?w=1600&i=1647265202826.jpg",
+        },
+        {
+            titulo: "Pulp Fiction",
+            imagen: "https://resize-media.festival-cannes.com/fit-in/1600x903/film_film/0002/13/6173d51ead0a8a2b7bad7d65bf340b02d35d2ed9.jpeg",
+        },
+        {
+            titulo: "El Club de la Pelea",
+            imagen: "https://indiehoy.com/wp-content/uploads/2022/01/fight-club-1.jpg",
+        },
+        {
+            titulo: "El Señor de los Anillos: El Retorno del Rey",
+            imagen: "http://leelibros.com/biblioteca/files/images/retorno_rey_princ.jpg",
+        },
+        {
+            titulo: "Spiderman: Un Nuevo Universo",
+            imagen: "https://www.informador.mx/__export/1659379855682/sites/elinformador/img/2022/08/01/20160426_crop1659375778693.jpg_1970638775.jpg",
+        },
+    ]
+
     useEffect(() => {
         getPeliculas()
+        setListado(peliculas)
     }, [])
 
     const getPeliculas = async () => {
@@ -27,6 +54,12 @@ export default function ListaPelicula() {
         }
     }
 
+    const filteredPeliculas = () => {
+        return listado.filter((pelicula) => {
+            return pelicula.titulo.toLowerCase().includes(busqueda.toLowerCase())
+        })
+    }
+
     if (!loading) {
         return (<>
             <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -34,7 +67,10 @@ export default function ListaPelicula() {
                 <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <input className="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search" />
+                <input className="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Buscar" aria-label="Search" 
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                />
                 <div className="navbar-nav">
                     <div className="nav-item text-nowrap">
                         <a className="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
@@ -58,7 +94,10 @@ export default function ListaPelicula() {
                 <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <input className="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search" />
+                <input className="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search" 
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                />
                 <div className="navbar-nav">
                     <div className="nav-item text-nowrap">
                         <a className="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
@@ -73,34 +112,10 @@ export default function ListaPelicula() {
                 <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 className="h2">Peliculas</h1>
                 </div>
-                <div className="d-flex flex-wrap">
-
-                    <div className="card card-size">
-                        <img src="https://static.cinepolis.com/img/peliculas/41658/1/1/41658.jpg" className="card-img-top" alt="..." />
-                        <div className="card-img-overlay bg-dark cuerpo">
-                            <h5 className='card-text'>Demon slayer</h5>
-                            <p className="card-text">Score<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star-fill" viewBox="0 0 16 16">
-                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star-fill" viewBox="0 0 16 16">
-                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star-fill" viewBox="0 0 16 16">
-                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star-fill" viewBox="0 0 16 16">
-                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star-fill" viewBox="0 0 16 16">
-                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                </svg></p>
-                            <div className='d-flex justify-content-center'>
-                                <a className='btn btn-light' href='#!'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
-                                    <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z" />
-                                </svg></a>
-                                <a className='btn btn-info' href='#!'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                </svg></a>
-                            </div>
-                        </div>
-                    </div>
+                <div className="d-flex flex-wrap">      
+                       {filteredPeliculas().map((película) => (
+                         <Pelicula imagen={película.imagen} titulo={película.titulo} />
+                       ))}
                 </div>
                 <div className='row'>
                     <ul
