@@ -4,6 +4,7 @@ import mysql.connector
 def add_user(request):
     # Parsear data
     data = request.get_json()
+    print(data)
     
     # Capturar datos
     name = data['name']
@@ -15,8 +16,8 @@ def add_user(request):
     try:
         conection = mysql.connector.connect(
             host="localhost",
-            user="root",
-            password="secret",
+            user="myuser",
+            password="24122001.",
             database="dbayd"
         )
         print("Conexión establecida correctamente.")

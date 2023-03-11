@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import toast from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 import axios from "axios";
 import "../styles/Inicio.css";
 
@@ -11,6 +11,7 @@ export function Inicio() {
   const [passConf, setPassConfirm] = useState("");
 
   const login = () => {
+
     if (email !== "") {
       const regex_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (regex_email.test(email)) {
@@ -30,6 +31,14 @@ export function Inicio() {
                     color: "#FFFF",
                   },
                 });
+                if(email === "admin@gmail.com"){
+                  localStorage.setItem("admin", true)
+                }else{
+                  localStorage.setItem("admin", false)
+                }
+                localStorage.setItem("user", JSON.stringify(resp.data.user));
+                localStorage.setItem("ingreso", true);
+                window.location.reload(false)
               } else {
                 if (resp.data.type === 0) {
                   toast.error("DB Connection Error", {
@@ -105,7 +114,7 @@ export function Inicio() {
                 axios
                   .post("http://localhost:5000/register", {
                     name: name,
-                    lastName: lastName,
+                    lastname: lastName,
                     email: email,
                     pass: pass,
                   })
@@ -119,6 +128,9 @@ export function Inicio() {
                           color: "#FFFF",
                         },
                       });
+                      localStorage.setItem("user", JSON.stringify(resp.data.user));
+                      localStorage.setItem("ingreso", true);
+                      window.location.reload(false)
                     } else {
                       if (resp.data.type === 0) {
                         toast.error("DB Connection Error", {
@@ -472,6 +484,7 @@ export function Inicio() {
           </div>
         </div>
       </div>
+      <Toaster position="top-right" />
     </section>
   );
 }

@@ -4,6 +4,7 @@ from flask import jsonify
 def verwatchlist(request):
     # Obtener el JSON enviado por el cliente
     data = request.get_json()
+    print(data)
     idUser = data['iduser']
     #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
     connection = pymysql.connect(host='localhost',user='myuser',password='24122001.',db='dbayd')

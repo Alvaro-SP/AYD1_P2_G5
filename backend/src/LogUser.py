@@ -13,8 +13,8 @@ def log_user(request):
     try:
         conection = mysql.connector.connect(
             host="localhost",
-            user="root",
-            password="secret",
+            user="myuser",
+            password="24122001.",
             database="dbayd"
         )
         print("Conexión establecida correctamente.")
