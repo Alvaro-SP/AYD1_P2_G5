@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import "./Inicio.css";
+import "../styles/Inicio.css";
 
 export function Inicio() {
   const [name, setName] = useState("");
@@ -31,14 +31,25 @@ export function Inicio() {
                   },
                 });
               } else {
-                toast.error("Bad Credentials", {
-                  position: "top-right",
-                  duration: 6000,
-                  style: {
-                    background: "bs-danger",
-                    color: "#FFFF",
-                  },
-                });
+                if (resp.data.type === 0) {
+                  toast.error("DB Connection Error", {
+                    position: "top-right",
+                    duration: 6000,
+                    style: {
+                      background: "bs-danger",
+                      color: "#FFFF",
+                    },
+                  });
+                } else {
+                  toast.error("Bad Credentials", {
+                    position: "top-right",
+                    duration: 6000,
+                    style: {
+                      background: "bs-danger",
+                      color: "#FFFF",
+                    },
+                  });
+                }
               }
             })
             .catch(() => {
@@ -109,14 +120,25 @@ export function Inicio() {
                         },
                       });
                     } else {
-                      toast.error("Bad Credentials", {
-                        position: "top-right",
-                        duration: 6000,
-                        style: {
-                          background: "bs-danger",
-                          color: "#FFFF",
-                        },
-                      });
+                      if (resp.data.type === 0) {
+                        toast.error("DB Connection Error", {
+                          position: "top-right",
+                          duration: 6000,
+                          style: {
+                            background: "bs-danger",
+                            color: "#FFFF",
+                          },
+                        });
+                      } else {
+                        toast.error("Email Existent", {
+                          position: "top-right",
+                          duration: 6000,
+                          style: {
+                            background: "bs-danger",
+                            color: "#FFFF",
+                          },
+                        });
+                      }
                     }
                   })
                   .catch(() => {
