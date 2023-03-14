@@ -79,5 +79,7 @@ def quit_watchlist():
     response = quitwatchlist(request)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+
 if __name__ == '__main__':
     app.run()
