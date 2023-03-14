@@ -5,6 +5,7 @@ from src.AddUser import add_user
 from src.LogUser import log_user
 from src.AddWatchlist import addwatchlist
 from src.VerWatchlist import verwatchlist
+from src.Getpeliporuser import getpeliporuser
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -56,5 +57,11 @@ def ver_watchlist():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+#! Endpoint para ver
+@app.route('/verinfopelicula', methods=['POST'])
+def ver_peliporuser():
+    response = getpeliporuser(request)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 if __name__ == '__main__':
     app.run()
