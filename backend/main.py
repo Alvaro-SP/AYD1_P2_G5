@@ -7,6 +7,7 @@ from src.AddWatchlist import addwatchlist
 from src.VerWatchlist import verwatchlist
 from src.Getpeliporuser import getpeliporuser
 from src.PromedioTotal import promediototal
+from src.QuitWatchlist import quitwatchlist
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -69,6 +70,13 @@ def ver_peliporuser():
 @app.route('/promediototal', methods=['POST'])
 def promedio_total():
     response = promediototal(request)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para quitar watchlist
+@app.route('/quitwatchlist', methods=['POST'])
+def quit_watchlist():
+    response = quitwatchlist(request)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 if __name__ == '__main__':
