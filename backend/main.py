@@ -6,6 +6,7 @@ from src.LogUser import log_user
 from src.AddWatchlist import addwatchlist
 from src.VerWatchlist import verwatchlist
 from src.Getpeliporuser import getpeliporuser
+from src.PromedioTotal import promediototal
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -61,6 +62,13 @@ def ver_watchlist():
 @app.route('/verinfopelicula', methods=['POST'])
 def ver_peliporuser():
     response = getpeliporuser(request)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para promedio
+@app.route('/promediototal', methods=['POST'])
+def promedio_total():
+    response = promediototal(request)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 if __name__ == '__main__':
