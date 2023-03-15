@@ -2,3 +2,8 @@
     align-items: center;
     text-align: center;
 }
+
+.contenedor-addmovie{
+    padding-left: 5rem;
+    width: calc(100% - 380px);
+}

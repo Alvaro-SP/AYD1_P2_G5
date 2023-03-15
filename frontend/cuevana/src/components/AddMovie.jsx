@@ -124,7 +124,7 @@ function AddMovie() {
 
 
     return (
-        <Container fluid='md'>
+        <Container fluid='md' className='contenedor-addmovie'>
             <Row>
                 <Col >
                     <h1>Agregar Peliculas</h1>
