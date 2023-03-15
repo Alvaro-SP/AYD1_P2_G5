@@ -80,15 +80,7 @@ def quit_watchlist():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-#! Endpoint para quitar watchlist
-@app.route('/info-actor', methods=['POST'])
-def obtener_info_actor():
-    resprev = get_info_actor(request)
-    response = jsonify(resprev)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
-
-#! Endpoint para quitar watchlist
+#! Endpoint para obtener info de un actor
 @app.route('/info-actor', methods=['POST'])
 def obtener_info_actor():
     resprev = get_info_actor(request)
