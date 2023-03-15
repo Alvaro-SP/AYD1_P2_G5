@@ -17,3 +17,12 @@ content-type: application/json
     "email": "estoes@ejemplo.com",
     "pass": "ABC123"
 }
+
+###
+
+POST http://localhost:5000/info-actor HTTP/1.1
+content-type: application/json
+
+{
+    "id": "5"
+}
