@@ -26,3 +26,15 @@ content-type: application/json
 {
     "id": "5"
 }
+
+###
+
+POST http://localhost:5000/add-comment HTTP/1.1
+content-type: application/json
+
+{
+    "id_user": 1,
+    "id_movie": 5,
+    "comment": "Este es otro comentario de prueba"
+}
+

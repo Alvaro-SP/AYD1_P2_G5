@@ -8,6 +8,7 @@ from src.VerWatchlist import verwatchlist
 from src.PromedioTotal import promediototal
 from src.QuitWatchlist import quitwatchlist
 from src.GetInfoActor import get_info_actor
+from src.AddComment import add_comment
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -84,6 +85,14 @@ def quit_watchlist():
 @app.route('/info-actor', methods=['POST'])
 def obtener_info_actor():
     resprev = get_info_actor(request)
+    response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para agregar un comentario
+@app.route('/add-comment', methods=['POST'])
+def agregar_comentario():
+    resprev = add_comment(request)
     response = jsonify(resprev)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
