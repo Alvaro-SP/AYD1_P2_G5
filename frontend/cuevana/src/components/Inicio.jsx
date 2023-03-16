@@ -1,17 +1,27 @@
 import React, { useState } from "react";
-import toast, {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import "../styles/Inicio.css";
 
 export function Inicio() {
+  const [toolAux, setToolTip] = useState("Register");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [passConf, setPassConfirm] = useState("");
 
-  const login = () => {
+  const changeToolTip = () => {
+    var elem = document.getElementById("login");
+    console.log(elem.className);
+    if (elem.className.includes("active")) {
+      setToolTip("Login");
+    } else {
+      setToolTip("Register");
+    }
+  };
 
+  const login = () => {
     if (email !== "") {
       const regex_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (regex_email.test(email)) {
@@ -31,14 +41,14 @@ export function Inicio() {
                     color: "#FFFF",
                   },
                 });
-                if(email === "admin@gmail.com"){
-                  localStorage.setItem("admin", true)
-                }else{
-                  localStorage.setItem("admin", false)
+                if (email === "admin@gmail.com") {
+                  localStorage.setItem("admin", true);
+                } else {
+                  localStorage.setItem("admin", false);
                 }
                 localStorage.setItem("user", JSON.stringify(resp.data.user));
                 localStorage.setItem("ingreso", true);
-                window.location.reload(false)
+                window.location.reload(false);
               } else {
                 if (resp.data.type === 0) {
                   toast.error("DB Connection Error", {
@@ -128,9 +138,12 @@ export function Inicio() {
                           color: "#FFFF",
                         },
                       });
-                      localStorage.setItem("user", JSON.stringify(resp.data.user));
+                      localStorage.setItem(
+                        "user",
+                        JSON.stringify(resp.data.user)
+                      );
                       localStorage.setItem("ingreso", true);
-                      window.location.reload(false)
+                      window.location.reload(false);
                     } else {
                       if (resp.data.type === 0) {
                         toast.error("DB Connection Error", {
@@ -258,12 +271,18 @@ export function Inicio() {
                   className="active"
                   aria-current="true"
                   aria-label="Slide 1"
+                  data-toggle="tooltip"
+                  data-placement="botton"
+                  title="Login"
                 ></button>
                 <button
                   type="button"
                   data-bs-target="#carouselExampleIndicators"
                   data-bs-slide-to="1"
                   aria-label="Slide 2"
+                  data-toggle="tooltip"
+                  data-placement="botton"
+                  title="Register"
                 ></button>
               </div>
               <div
@@ -274,7 +293,7 @@ export function Inicio() {
                 }}
               >
                 <div
-                  className="carousel-item active"
+                  className="carousel-item active" id="login"
                   style={{
                     width: "100%",
                     height: "100%",
@@ -332,7 +351,7 @@ export function Inicio() {
                   </div>
                 </div>
                 <div
-                  className="carousel-item"
+                  className="carousel-item" id="register"
                   style={{
                     width: "100%",
                     height: "100%",
@@ -461,6 +480,10 @@ export function Inicio() {
                 type="button"
                 data-bs-target="#carouselExampleIndicators"
                 data-bs-slide="prev"
+                data-toggle="tooltip"
+                data-placement="top"
+                title={toolAux}
+                onClick={() => changeToolTip()}
               >
                 <span
                   className="carousel-control-prev-icon"
@@ -473,6 +496,10 @@ export function Inicio() {
                 type="button"
                 data-bs-target="#carouselExampleIndicators"
                 data-bs-slide="next"
+                data-toggle="tooltip"
+                data-placement="top"
+                title={toolAux}
+                onClick={() => changeToolTip()}
               >
                 <span
                   className="carousel-control-next-icon"

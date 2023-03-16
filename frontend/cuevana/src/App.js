@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState,useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap';
+import "@popperjs"
 import { Inicio } from "./components/Inicio";
 import NavbarCueva from './components/navbar';
 

@@ -1,0 +1,97 @@
+.actor-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(#040424, 88%, #290272);
+    padding: 20px;
+    height: 100vh;
+  }
+
+  
+  .actor-info-image {
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-bottom: 20px;
+    cursor: grab;
+  }
+  
+  .actor-info-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    animation: pulse 2s ease-in-out infinite alternate;
+    color: white;
+    cursor: grab;
+    
+  }
+
+  .actor-nacimiento{
+    color: aliceblue;
+  }
+  
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
+  
+  .actor-info-text {
+    color: #b3b3b3;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 40em;
+    /*justificar texto*/
+    text-align: justify;
+    cursor: grab;
+  }
+  
+  
+  .actor-info-top-movies {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  
+  .actor-info-top-movies .list-group-item {
+    background-color: #221f1f;
+    color: #e6e6e6;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .actor-info-top-movies .list-group-item span {
+    margin-right: 10px;
+  }
+  
+  
+  .actor-info-top-movies .badge {
+    background-color: #e89a9a;
+    color: #2f2444;
+  }
+
+  /*responsive text*/
+    @media screen and (max-width: 700px) {
+        .actor-info-text {
+            width: 30em;
+        }
+    }
+
+    @media screen and (max-width: 505px) {
+        .actor-info-text {
+            width: 20em;
+        }
+        .actor-info-image {
+            width: 200px;
+            height: 300px;
+        }
+    }
