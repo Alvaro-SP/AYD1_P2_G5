@@ -43,7 +43,6 @@ export function ViewPelicula() {
       });
 
       if (result.data.res) {
-        console.log(result.data.res);
         setDirector(result.data.res.director);
         setYear(result.data.res.anio);
         setDescription(result.data.res.resumen);
@@ -65,7 +64,7 @@ export function ViewPelicula() {
         
         setActores(newListaActores);
         setPoster(result.data.res.poster);
-        
+
         result.data.res.moviesimages.map((resource) => {
           if (urlTrailer === "" && resource.link_image.includes("watch")){
             setUrlTrailer(resource.link_image)
@@ -73,17 +72,15 @@ export function ViewPelicula() {
         })
 
       }
-      console.log("Abajo aparece la calfiicaion del rating")
-      console.log(result.data.res.rating[0])
-      if (result.data.res.rating[0]) {
-        
-        let valueStars =parseInt(result.data.res.rating[0])/1 ;
+      
+      if (result.data.res.rating) {
+        let valueStars = result.data.res.rating / 1;
         let newStarsValues = [];
         for (let i = 0; i < valueStars; i++) {
           newStarsValues.push("bi bi-star-fill");
         }
 
-        if (result.data.res.rating[0] % 1 !== 0) {
+        if (result.data.res.rating % 1 !== 0) {
           newStarsValues.push("bi bi-star-half");
         }
 
@@ -130,7 +127,7 @@ export function ViewPelicula() {
                     {actores.map((actor, index) => {
                       return (
                         <span key={index}>
-                          <a href="#!" className="text-white"> {/* TODO: CAMBIAR HREF */ }
+                          <a href={"http://localhost:3000/veractor/" + actor.idActor} className="text-white">
                             {actor.nombre}
                           </a>
                           <>

@@ -6,27 +6,40 @@ import Pelicula from "./Pelicula";
 
 export default function Watchlist() {
   const [listado, setListado] = useState([]);
+  const [listadoGeneral, setListadoGeneral] = useState([]);
+  const [valuesPages, setValuesPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busqueda, setBusqueda] = useState("");
 
   const cerrarsesion = () => {
     localStorage.setItem("ingreso", false);
     localStorage.setItem("user", null);
-    window.location.reload(false)
+    window.location.reload(false);
   };
+
   useEffect(() => {
     getPeliculas();
   }, []);
 
   const getPeliculas = async () => {
-    console.log(JSON.parse(localStorage.getItem("user")).id)
+    console.log(JSON.parse(localStorage.getItem("user")).id);
     const res = await axios.post("http://localhost:5000/verwatchlist", {
       iduser: JSON.parse(localStorage.getItem("user")).id,
     });
     if (res.data.res !== false) {
-      setListado(res.data.res);
       setLoading(true);
-      console.log(res.data, res);
+
+      let NumPages = [];
+      for (let i = 1; i <= res.data.res.length / 5; i++) {
+        NumPages.push(i);
+      }
+
+      if (res.data.res.length % 5 !== 0) {
+        NumPages.push(NumPages.length + 1);
+      }
+
+      setListadoGeneral(res.data.res);
+      setValuesPages(NumPages);
     } else {
       toast.error("Error en la base", {
         position: "top-right",
@@ -40,10 +53,29 @@ export default function Watchlist() {
   };
 
   const filteredPeliculas = () => {
+    if (busqueda !== "") {
+      return listadoGeneral.filter((peli) => {
+        return peli.nombre.toLowerCase().includes(busqueda.toLowerCase());
+      });
+    }
     return listado.filter((peli) => {
       return peli.nombre.toLowerCase().includes(busqueda.toLowerCase());
     });
   };
+
+  const paginarPeliculas = (index) => {
+    let seccionPeliculas = [];
+    for (let i = (index - 1) * 5; i < index * 5; i++) {
+      if (i < listadoGeneral.length) {
+        seccionPeliculas.push(listadoGeneral[i]);
+      }
+    }
+    setListado(seccionPeliculas);
+  };
+
+  useEffect(() => {
+    paginarPeliculas(1);
+  }, [listado]);
 
   if (!loading) {
     return (
@@ -100,7 +132,7 @@ export default function Watchlist() {
 
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-dark wi text-white">
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Peliculas</h1>
+            <h1 className="h2">Watchlist</h1>
           </div>
         </main>
       </>
@@ -179,54 +211,38 @@ export default function Watchlist() {
               style={{ paddingTop: "2%" }}
             >
               <li className="page-item">
-                <a href="#!" className="page-link">
+                <a
+                  href="#!"
+                  className="page-link"
+                  onClick={() => paginarPeliculas(1)}
+                >
                   <span>
                     <i className="bi bi-caret-left-square-fill"></i>
                   </span>
                 </a>
               </li>
+              {valuesPages.map((value) => {
+                return (
+                  <>
+                    <li className="page-item" key={value}>
+                      <a
+                        className="page-link"
+                        onClick={() => paginarPeliculas(value)}
+                      >
+                        {value}
+                      </a>
+                    </li>
+                  </>
+                );
+              })}
               <li className="page-item">
-                <a className="page-link" href="#!">
-                  1
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  2
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  3
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  4
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  5
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  6
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  7
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="#!">
-                  8
-                </a>
-              </li>
-              <li className="page-item">
-                <a href="#!" className="page-link">
+                <a
+                  href="#!"
+                  className="page-link"
+                  onClick={() =>
+                    paginarPeliculas(valuesPages[valuesPages.length - 1])
+                  }
+                >
                   <span>
                     <i className="bi bi-caret-right-square-fill"></i>
                   </span>

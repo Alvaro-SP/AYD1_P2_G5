@@ -51,14 +51,15 @@ function VerActor() {
         <ListGroup className="actor-info-top-movies" variant="flush">
           {actorData.movies.map((movie, index) => (
             <ListGroup.Item key={index}>
-              <Link to={`/peliculas/${movie.id}`}><span>{movie.name}</span></Link>
+              <Link to={`/watchMovie`} onClick={() => localStorage.setItem("idPelicula", movie.id)}><span>{movie.name}</span></Link>
               <Badge pill variant="secondary">{movie.year}</Badge>
             </ListGroup.Item>
           ))}
           <Outlet />
         </ListGroup>
         <Routes>
-          <Route path="/peliculas/:id" /*element={ <Pelicula /> }*/ />
+          <Route path="http://localhost:3000/watchMovie" element={<ViewPelicula />} />
+          {/* <Route path="/peliculas/:id" element={ <Pelicula /> } /> */}
         </Routes>
       </Router>
     </Container>
@@ -69,7 +70,7 @@ export default VerActor;
 
 
 /**
- const actor = {
+  const actor = {
     name: 'Leonardo DiCaprio',
     image: 'https://i.blogs.es/ad5080/leonardo-dicaprio/1366_2000.jpeg',
     info: 'Leonardo Wilhelm DiCaprio is an American actor, film producer, and environmental activist. He has often played unconventional roles, particularly in biopics and period films. As of 2021, his films have grossed US$7.2 billion worldwide, and he has placed eight times in annual rankings of the world\'s highest-paid actors. He has won various awards, including an Academy Award, a BAFTA Award, and three Golden Globe Awards.',
