@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { AddMovie } from "./AddMovie";
 import Watchlist from "./Watchlist";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ViewPelicula } from "./ViewPelicula";
 export default function NavbarCueva() {
   useEffect(() => {
     if(localStorage.getItem("admin")){
@@ -81,6 +82,7 @@ export default function NavbarCueva() {
           <Route path="/" element={<ListaPelicula />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/addmovie" element={<AddMovie />} />
+          <Route path="/watchMovie/:idPelicula" element={<ViewPelicula />} />
         </Routes>
       </Router>
     </>
