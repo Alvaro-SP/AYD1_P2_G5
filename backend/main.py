@@ -5,9 +5,11 @@ from src.AddUser import add_user
 from src.LogUser import log_user
 from src.AddWatchlist import addwatchlist
 from src.VerWatchlist import verwatchlist
-from src.Getpeliporuser import getpeliporuser
 from src.PromedioTotal import promediototal
 from src.QuitWatchlist import quitwatchlist
+from src.GetInfoActor import get_info_actor
+from src.AddComment import add_comment
+from src.GetComments import get_comments
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -80,6 +82,29 @@ def quit_watchlist():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+#! Endpoint para obtener info de un actor
+@app.route('/info-actor', methods=['POST'])
+def obtener_info_actor():
+    resprev = get_info_actor(request)
+    response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para agregar un comentario
+@app.route('/add-comment', methods=['POST'])
+def agregar_comentario():
+    resprev = add_comment(request)
+    response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para obtener los comentarios de una pelicula
+@app.route('/get-comments', methods=['POST'])
+def obtener_comentarios():
+    resprev = get_comments(request)
+    response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == '__main__':
     app.run()

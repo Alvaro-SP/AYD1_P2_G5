@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../styles/ListaPelicula.css'
 import axios from 'axios'
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Pelicula from './Pelicula';
 
 export default function ListaPelicula() {
@@ -9,32 +9,15 @@ export default function ListaPelicula() {
     const [loading, setLoading] = useState(true)
     const [busqueda, setBusqueda] = useState("")
 
-    const peliculas = [
-        {
-            titulo: "El Padrino",
-            imagen: "https://img2.rtve.es/i/?w=1600&i=1647265202826.jpg",
-        },
-        {
-            titulo: "Pulp Fiction",
-            imagen: "https://resize-media.festival-cannes.com/fit-in/1600x903/film_film/0002/13/6173d51ead0a8a2b7bad7d65bf340b02d35d2ed9.jpeg",
-        },
-        {
-            titulo: "El Club de la Pelea",
-            imagen: "https://indiehoy.com/wp-content/uploads/2022/01/fight-club-1.jpg",
-        },
-        {
-            titulo: "El Señor de los Anillos: El Retorno del Rey",
-            imagen: "http://leelibros.com/biblioteca/files/images/retorno_rey_princ.jpg",
-        },
-        {
-            titulo: "Spiderman: Un Nuevo Universo",
-            imagen: "https://www.informador.mx/__export/1659379855682/sites/elinformador/img/2022/08/01/20160426_crop1659375778693.jpg_1970638775.jpg",
-        },
-    ]
+    
+    const cerrarsesion=()=>{
+        localStorage.setItem("ingreso",false)
+        localStorage.setItem("user",null)
 
+        window.location.reload(false)
+    }
     useEffect(() => {
         getPeliculas()
-        setListado(peliculas)
     }, [])
 
     const getPeliculas = async () => {
@@ -42,6 +25,7 @@ export default function ListaPelicula() {
         if (res.data.res !== false) {
             setListado(res.data.res)
             setLoading(true)
+            console.log(res.data,res)
         } else {
             toast.success("Error en la base", {
                 position: "top-right",
@@ -55,25 +39,23 @@ export default function ListaPelicula() {
     }
 
     const filteredPeliculas = () => {
-        return listado.filter((pelicula) => {
-            return pelicula.titulo.toLowerCase().includes(busqueda.toLowerCase())
+        return listado.filter((peli) => {
+            return peli.nombre.toLowerCase().includes(busqueda.toLowerCase())
         })
     }
 
     if (!loading) {
         return (<>
             <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-                <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#!">Cuevana</a>
+                <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#!">Cuevana PRO</a>
                 <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <input className="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Buscar" aria-label="Search" 
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+                <input className="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Buscar" aria-label="Search"
                 />
                 <div className="navbar-nav">
                     <div className="nav-item text-nowrap">
-                        <a className="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <a onClick={cerrarsesion} className="nav-link px-3" href=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
                             <path fillRule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
                             <path fillRule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
                         </svg>&nbsp;Sign out</a>
@@ -90,7 +72,7 @@ export default function ListaPelicula() {
     } else {
         return (<>
             <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-                <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#!">Cuevana</a>
+                <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#!">Cuevana PRO</a>
                 <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -100,7 +82,7 @@ export default function ListaPelicula() {
                 />
                 <div className="navbar-nav">
                     <div className="nav-item text-nowrap">
-                        <a className="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <a onClick={cerrarsesion} className="nav-link px-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-left" viewBox="0 0 16 16">
                             <path fillRule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
                             <path fillRule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
                         </svg>&nbsp;Sign out</a>
@@ -114,7 +96,7 @@ export default function ListaPelicula() {
                 </div>
                 <div className="d-flex flex-wrap">      
                        {filteredPeliculas().map((película) => (
-                         <Pelicula imagen={película.imagen} titulo={película.titulo} />
+                         <Pelicula imagen={película.poster} titulo={película.nombre} index={película.id}/>
                        ))}
                 </div>
                 <div className='row'>
@@ -179,6 +161,8 @@ export default function ListaPelicula() {
                     </ul>
                 </div>
             </main>
+
+            <Toaster position="top-right" />
         </>)
     }
 

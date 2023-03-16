@@ -4,22 +4,24 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Pelicula from "./Pelicula";
 
-export default function ListaPelicula({ user }) {
+export default function Watchlist() {
   const [listado, setListado] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busqueda, setBusqueda] = useState("");
 
   const cerrarsesion = () => {
     localStorage.setItem("ingreso", false);
-    localStorage.setItem("user", none);
+    localStorage.setItem("user", null);
+    window.location.reload(false)
   };
   useEffect(() => {
     getPeliculas();
   }, []);
 
   const getPeliculas = async () => {
+    console.log(JSON.parse(localStorage.getItem("user")).id)
     const res = await axios.post("http://localhost:5000/verwatchlist", {
-      iduser: user,
+      iduser: JSON.parse(localStorage.getItem("user")).id,
     });
     if (res.data.res !== false) {
       setListado(res.data.res);
@@ -51,7 +53,7 @@ export default function ListaPelicula({ user }) {
             className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6"
             href="#!"
           >
-            Cuevana
+            Cuevana PRO
           </a>
           <button
             className="navbar-toggler position-absolute d-md-none collapsed"
@@ -111,7 +113,7 @@ export default function ListaPelicula({ user }) {
             className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6"
             href="#!"
           >
-            Cuevana
+            Cuevana PRO
           </a>
           <button
             className="navbar-toggler position-absolute d-md-none collapsed"
@@ -134,7 +136,7 @@ export default function ListaPelicula({ user }) {
           />
           <div className="navbar-nav">
             <div className="nav-item text-nowrap">
-              <a className="nav-link px-3" href="#!" onClick={cerrarsesion}>
+              <a className="nav-link px-3" href="" onClick={cerrarsesion}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -160,14 +162,14 @@ export default function ListaPelicula({ user }) {
 
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 wi text-white">
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Peliculas</h1>
+            <h1 className="h2">Watchlist</h1>
           </div>
           <div className="d-flex flex-wrap">
-            {filteredPeliculas().map((película, index) => (
+            {filteredPeliculas().map((película) => (
               <Pelicula
                 imagen={película.poster}
                 titulo={película.nombre}
-                index={index}
+                index={película.id}
               />
             ))}
           </div>
