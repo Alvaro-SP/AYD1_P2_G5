@@ -1,11 +1,11 @@
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   padding-top: 7%;
 }
 
 .card {
-  max-width: 960px;
+  max-width: 840px;
   background-color: transparent;
   backdrop-filter: blur(15px);
   color: white;
