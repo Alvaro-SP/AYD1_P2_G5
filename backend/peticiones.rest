@@ -38,3 +38,11 @@ content-type: application/json
     "comment": "Este es otro comentario de prueba"
 }
 
+###
+
+POST http://localhost:5000/get-comments HTTP/1.1
+content-type: application/json
+
+{
+    "id": 5
+}

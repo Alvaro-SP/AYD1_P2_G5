@@ -9,6 +9,7 @@ from src.PromedioTotal import promediototal
 from src.QuitWatchlist import quitwatchlist
 from src.GetInfoActor import get_info_actor
 from src.AddComment import add_comment
+from src.GetComments import get_comments
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -93,6 +94,14 @@ def obtener_info_actor():
 @app.route('/add-comment', methods=['POST'])
 def agregar_comentario():
     resprev = add_comment(request)
+    response = jsonify(resprev)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#! Endpoint para obtener los comentarios de una pelicula
+@app.route('/get-comments', methods=['POST'])
+def obtener_comentarios():
+    resprev = get_comments(request)
     response = jsonify(resprev)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
