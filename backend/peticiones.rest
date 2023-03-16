@@ -46,3 +46,14 @@ content-type: application/json
 {
     "id": 5
 }
+
+###
+
+POST http://localhost:5000/rate-movie HTTP/1.1
+content-type: application/json
+
+{
+    "id_user": 1,
+    "id_movie": 5,
+    "rate": 4
+}
