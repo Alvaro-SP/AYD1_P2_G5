@@ -1,7 +1,9 @@
 
 export default function CartaComentario(props) {
+    
     return (<>
         <li>
+        
             <div className="comment-main-level">
                 <div className="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="" /></div>
 
