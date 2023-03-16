@@ -82,7 +82,7 @@ export default function NavbarCueva() {
           <Route path="/" element={<ListaPelicula />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/addmovie" element={<AddMovie />} />
-          <Route path="/watchMovie/:idPelicula" element={<ViewPelicula />} />
+          <Route path="/watchMovie" element={<ViewPelicula />} />
         </Routes>
       </Router>
     </>

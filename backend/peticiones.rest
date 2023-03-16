@@ -1,3 +1,13 @@
+
+POST http://localhost:5000/addwatchlist HTTP/1.1
+content-type: application/json
+
+{
+    "iduser": 1,
+    "idmovie": 2
+}
+
+###
 POST http://localhost:5000/register HTTP/1.1
 content-type: application/json
 

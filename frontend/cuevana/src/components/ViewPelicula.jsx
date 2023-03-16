@@ -1,13 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import "../styles/ViewPeliculas.css";
+import "../styles/ViewPelicula.css";
 
 export function ViewPelicula() {
-  const {
-    match: { params },
-  } = this.props;
-
   const [verVideo, setVideoPlay] = useState(false);
   const [fillStars, setStarFill] = useState([
     "bi bi-star",
@@ -23,65 +19,79 @@ export function ViewPelicula() {
   const [poster, setPoster] = useState("");
   const [titleMovie, setTitleMovie] = useState("");
   const [urlTrailer, setUrlTrailer] = useState("");
-  const [valorFill, setValorFill] = useState(0);
   const [valorWatchlist, setValorWatchlist] = useState("");
 
   const changeWatchlist = async () => {
     const result = await axios.post("http://localhost:5000/addwatchlist", {
-      iduser: JSON.parse(localstorage.getItem("user")),
-      idmovie: params.idPelicula,
+      iduser: JSON.parse(localStorage.getItem("user")).id,
+      idmovie: localStorage.getItem("idPelicula")
     });
 
-    if (result.data.flag) {
+    if (result.data.res) {
       setValorWatchlist("bi bi-heart-fill");
     } else {
       setValorWatchlist("bi bi-heart");
     }
   };
 
-  $("#exampleModal").on("hide.bs.modal", () => {
-    setVideoPlay(false);
-  });
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.post("http://localhost:5000/verinfopelicula", {
+        idmovie: localStorage.getItem("idPelicula"),
+        iduser: JSON.parse(localStorage.getItem("user")).id,
+      });
 
-  useEffect(async () => {
-    console.log(params.idPelicula);
-    const result = await axios.post("http://localhost:5000/watchmovie", {
-      idmovie: params.idPelicula,
-    });
+      if (result.data.res) {
+        setDirector(result.data.res.director);
+        setYear(result.data.res.anio);
+        setDescription(result.data.res.resumen);
+        setTitleMovie(result.data.res.nombre);
 
-    if (result.data.res) {
-      setDirector(result.data.director);
-      setYear(result.data.year);
-      setDescription(result.data.description);
-      setActores(result.data.listadoActores);
-      setPoster(result.data.resources[0]);
-      setUrlTrailer(result.data.resources[1]);
-      setTitleMovie(result.data.title);
+        if (result.data.res.watchlist) {
+          setValorWatchlist("bi bi-heart-fill");
+        } else {
+          setValorWatchlist("bi bi-heart");
+        }
+
+        const newListaActores = []
+        result.data.res.actores.map((actor) => {
+          newListaActores.push({
+            nombre: actor.nombre,
+            idActor: actor.idactor
+          })
+        })
+        
+        setActores(newListaActores);
+        setPoster(result.data.res.poster);
+
+        result.data.res.moviesimages.map((resource) => {
+          if (urlTrailer === "" && resource.link_image.includes("watch")){
+            setUrlTrailer(resource.link_image)
+          }
+        })
+
+      }
+      
+      if (result.data.res.rating[0]) {
+        let valueStars = result.data.res.rating[0] / 1;
+        let newStarsValues = [];
+        for (let i = 0; i < valueStars; i++) {
+          newStarsValues.push("bi bi-star-fill");
+        }
+
+        if (result.data.res.rating[0] % 1 !== 0) {
+          newStarsValues.push("bi bi-star-half");
+        }
+
+        for (let i = valueStars; i < 5; i++) {
+          newStarsValues.push("bi bi-star");
+        }
+
+        setStarFill(newStarsValues);
+      }
     }
 
-    const ranking = await axios.post("http://localhost:5000/promediototal", {
-      idmovie: params.idPelicula,
-    });
-
-    if (ranking.data.res) {
-      setValorFill(ranking.data.res / 1);
-      setValorHalf(ranking.data.res % 1);
-      const newStarsValues = [];
-
-      for (let i = 0; i < valorFill; i++) {
-        newStarsValues.push("bi bi-star-fill");
-      }
-
-      if (ranking.data.res % 1 != 0) {
-        newStarsValues.push("bi bi-star-half");
-      }
-
-      for (let i = valorFill; i < 5; i++) {
-        newStarsValues.push("bi bi-star");
-      }
-
-      setStarFill(newStarsValues);
-    }
+    getData()
   }, []);
 
   return (
@@ -94,6 +104,7 @@ export function ViewPelicula() {
                 src={poster}
                 className="img-fluid rounded-start"
                 alt={titleMovie}
+                style={{height: "100%", width: "100%"}}
               />
             </div>
             <div className="col-md-8">
@@ -103,6 +114,7 @@ export function ViewPelicula() {
                 <div className="card-text">
                   <small>
                     Director: {director}
+                    <>&nbsp;&nbsp;&nbsp;</>
                     Año: {year}
                   </small>
                 </div>
@@ -112,14 +124,19 @@ export function ViewPelicula() {
                   </h5>
                   <small className="text-white">
                     {actores.map((actor, index) => {
-                      (
-                        <a href="#!" className="text-white" key={index}>
-                          {actor}
-                        </a>
-                      ) & nbsp;
-                      nbsp;
-                      nbsp;
-                      nbsp;
+                      return (
+                        <span key={index}>
+                          <a href="#!" className="text-white"> {/* TODO: CAMBIAR HREF */ }
+                            {actor.nombre}
+                          </a>
+                          <>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                          </>
+                        </span>
+                      ) 
                     })}
                   </small>
                 </div>

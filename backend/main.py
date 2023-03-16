@@ -12,6 +12,7 @@ from src.AddComment import add_comment
 from src.GetComments import get_comments
 from src.RateMovie import rate_movie
 
+from src.Getpeliporuser import getpeliporuser
 from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
