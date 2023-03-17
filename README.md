@@ -84,19 +84,6 @@
 
 # <a name="nothing"></a>MANUAL TECNICO
 
-
->“Programa Orquestado en Docker-compose.”
-## <a name="intro" ></a>ÍNDICE
-| Topico | Link |
-| ------ | ------ |
-| Introducción | [Ir](#intro) |
-| Objetivos y alcances del sistema| [Ir](#ob) |
-| Componentes utilizados | [Ir](#sis) |
-| Sistema Operativo | [Ir](#sis) |
-| Tecnologías utilizadas | [Ir](#tech) |
-| Interfaz del programa | [Ir](#inter) |
-| Conclusiones | [Ir](#Conclu) |
-
 ## Objetivos
 
 Generales
@@ -122,7 +109,7 @@ clientes. A través de la metodología Scrum.
 
 ## CAPTURA DEL TABLERO:
 ### TABLERO SPRINT 2
-![a](assets/sp2.png)
+![a](assets/SP2.png)
 
 ### BACKLOG
 ![a](assets/t2.png)
