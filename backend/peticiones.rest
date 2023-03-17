@@ -1,3 +1,13 @@
+POST http://localhost:5000/addwatchlist HTTP/1.1
+content-type: application/json
+
+{
+    "iduser": 1,
+    "idmovie": 2
+}
+
+###
+
 POST http://localhost:5000/register HTTP/1.1
 content-type: application/json
 
@@ -16,4 +26,54 @@ content-type: application/json
 {
     "email": "estoes@ejemplo.com",
     "pass": "ABC123"
+}
+
+###
+
+POST http://localhost:5000/info-actor HTTP/1.1
+content-type: application/json
+
+{
+    "id": "5"
+}
+
+###
+
+POST http://localhost:5000/add-comment HTTP/1.1
+content-type: application/json
+
+{
+    "id_user": 1,
+    "id_movie": 2,
+    "comment": "Este es mi comentario de ejemplo :D FRONT."
+}
+
+###
+
+POST http://localhost:5000/comments HTTP/1.1
+content-type: application/json
+
+{
+    "id": 5
+}
+
+###
+
+POST http://localhost:5000/rate-movie HTTP/1.1
+content-type: application/json
+
+{
+    "id_user": 1,
+    "id_movie": 1,
+    "rate": 5
+}
+
+###
+
+POST http://localhost:5000/promediototal HTTP/1.1
+content-type: application/json
+
+{
+    "iduser": 1,
+    "idmovie": 5
 }

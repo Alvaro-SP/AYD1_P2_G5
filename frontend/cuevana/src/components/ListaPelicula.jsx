@@ -6,6 +6,8 @@ import Pelicula from './Pelicula';
 
 export default function ListaPelicula() {
     const [listado, setListado] = useState([])
+    const [listadoGeneral, setListadoGeneral] = useState([])
+    const [valuesPages, setValuesPages] = useState([])
     const [loading, setLoading] = useState(true)
     const [busqueda, setBusqueda] = useState("")
 
@@ -23,26 +25,59 @@ export default function ListaPelicula() {
     const getPeliculas = async () => {
         const res = await axios.get("http://localhost:5000/vercatalogo")
         if (res.data.res !== false) {
-            setListado(res.data.res)
             setLoading(true)
-            console.log(res.data,res)
+
+            let NumPages = []
+            for (let i = 1; i <= (res.data.res.length / 10); i++) {
+                NumPages.push(i)
+            }
+
+            if(res.data.res.length % 10 !== 0) {
+                NumPages.push(NumPages.length + 1)
+            }
+
+            setListadoGeneral(res.data.res);
+            setValuesPages(NumPages);
         } else {
             toast.success("Error en la base", {
                 position: "top-right",
                 duration: 6000,
                 style: {
-                  background: "bs-success",
-                  color: "#FFFF",
+                    background: "bs-success",
+                    color: "#FFFF",
                 },
-              });
+            });
         }
     }
 
     const filteredPeliculas = () => {
+        if(busqueda !== "") {
+            return listadoGeneral.filter((peli) => {
+                return peli.nombre.toLowerCase().includes(busqueda.toLowerCase())
+            })
+        } 
         return listado.filter((peli) => {
             return peli.nombre.toLowerCase().includes(busqueda.toLowerCase())
         })
+        
     }
+
+    const paginarPeliculas = (index) => {
+        let seccionPeliculas = []
+        for (let i = ((index-1)*10); i < (index*10); i++) {
+            if(i < listadoGeneral.length) {
+                seccionPeliculas.push(listadoGeneral[i])
+            }
+        }
+        setListado(seccionPeliculas)
+    }
+
+    useEffect(() => {
+        paginarPeliculas(1)
+    }, [listadoGeneral])
+
+    useEffect(() => {
+    }, [listado])
 
     if (!loading) {
         return (<>
@@ -95,9 +130,9 @@ export default function ListaPelicula() {
                     <h1 className="h2">Peliculas</h1>
                 </div>
                 <div className="d-flex flex-wrap">      
-                       {filteredPeliculas().map((película) => (
-                         <Pelicula imagen={película.poster} titulo={película.nombre} index={película.id}/>
-                       ))}
+                        {filteredPeliculas().map((película) => (
+                            <Pelicula imagen={película.poster} titulo={película.nombre} index={película.id}/>
+                        ))}
                 </div>
                 <div className='row'>
                     <ul
@@ -105,54 +140,27 @@ export default function ListaPelicula() {
                         style={{ paddingTop: "2%" }}
                     >
                         <li className="page-item">
-                            <a href="#!" className="page-link">
+                            <a href="#!" className="page-link" onClick={() => paginarPeliculas(1)}>
                                 <span>
                                     <i className="bi bi-caret-left-square-fill"></i>
                                 </span>
                             </a>
                         </li>
+                        {
+                            valuesPages.map((value) => {
+                                return(
+                                    <>
+                                    <li className="page-item" key={value}>
+                                        <a className="page-link" onClick={() => paginarPeliculas(value)}>
+                                            {value}
+                                        </a>
+                                    </li>
+                                    </>
+                                )
+                            })
+                        }
                         <li className="page-item">
-                            <a className="page-link" href="#!">
-                                1
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                2
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                3
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                4
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                5
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                6
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                7
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#!">
-                                8
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a href="#!" className="page-link">
+                            <a href="#!" className="page-link" onClick={() => paginarPeliculas(valuesPages[valuesPages.length - 1])} >
                                 <span>
                                     <i className="bi bi-caret-right-square-fill"></i>
                                 </span>

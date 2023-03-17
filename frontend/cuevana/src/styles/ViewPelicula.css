@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  justify-content: end;
+  padding-top: 7%;
+}
+
+.card {
+  max-width: 840px;
+  background-color: transparent;
+  backdrop-filter: blur(15px);
+  color: white;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.card_title {
+  display: flex;
+  justify-content: center;
+}
+
+#RepartoTitle {
+  display: flex;
+  justify-content: center;
+}
+
+#ActiveArea {
+  padding-top: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  position: relative;
+}
+
+.btn-danger {
+  left: 0%;
+}
+
+.btn-info {
+  left: 2%;
+}
+
+#watchRanking {
+  position: relative;
+  left: 4%;
+  border-width: 0.3px;
+  border: solid;
+  border-color: white;
+  border-radius: 5px;
+  width: 138px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: yellow;
+}
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  height: 700px;
+  max-width: 900px;
+  padding-top: 2%;
+}
+
+.modal-content {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  border: solid white;
+  color: white;
+}
+
+.card-body {
+  padding: 5%;
+}
+
+#textReparto {
+  padding-top: 3%;
+}

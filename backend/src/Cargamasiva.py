@@ -16,10 +16,10 @@ def takeCSV(pathactor, pathpelicula, pathreparto, pathrecurso):
     global actor, pelicula, reparto, recurso
     # Tomo en varios DataFrames to Lists
     # Leo los archivos CSV en DataFrames
-    df_actor = pd.read_csv(r"D:\REPOS LOCALES\AYD1\AYD1_P2_G5\backend\src\entradas\actor.csv", delimiter=',')
-    df_pelicula = pd.read_csv(r"D:\REPOS LOCALES\AYD1\AYD1_P2_G5\backend\src\entradas\movies.csv", delimiter=',')
-    df_reparto = pd.read_csv(r"D:\REPOS LOCALES\AYD1\AYD1_P2_G5\backend\src\entradas\reparto.csv", delimiter=',')
-    df_recurso = pd.read_csv(r"D:\REPOS LOCALES\AYD1\AYD1_P2_G5\backend\src\entradas\recursos.csv", delimiter=',')
+    df_actor = pd.read_csv(r"backend/src/entradas/actor.csv", delimiter=',')
+    df_pelicula = pd.read_csv(r"backend/src/entradas/movies.csv", delimiter=',')
+    df_reparto = pd.read_csv(r"backend/src/entradas/reparto.csv", delimiter=',')
+    df_recurso = pd.read_csv(r"backend/src/entradas/recursos.csv", delimiter=',')
     # Convierto los DataFrames en listas
     actor = df_actor.values.tolist()
     pelicula = df_pelicula.values.tolist()
@@ -38,7 +38,7 @@ def cargamasiva(request):
     takeCSV(pathactor, pathpelicula, pathreparto, pathrecurso)
 
     #! █████████████████████ CONNECT WITH DATABASE:█████████████████████
-    connection = pymysql.connect(host='localhost',user='myuser',password='24122001.',db='dbayd')
+    connection = pymysql.connect(host='localhost',user='root',password='secret',db='dbayd')
                         # charset='utf8mb4',
                         # cursorclass=pymysql.cursors.DictCursro
     # Ejecutar la insercion
