@@ -6,4 +6,5 @@
 .contenedor-addmovie{
     padding-left: 5rem;
     width: calc(100% - 380px);
+    background: linear-gradient(#040424, 88%, #290272);
 }

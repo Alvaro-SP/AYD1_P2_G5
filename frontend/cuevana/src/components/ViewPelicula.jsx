@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import "../styles/ViewPelicula.css";
+import Comentario from "./Comentario";
 
 export function ViewPelicula() {
   const [verVideo, setVideoPlay] = useState(false);
@@ -72,14 +73,14 @@ export function ViewPelicula() {
 
       }
       
-      if (result.data.res.rating[0]) {
-        let valueStars = result.data.res.rating[0] / 1;
+      if (result.data.res.rating) {
+        let valueStars = parseInt(result.data.res.rating) / 1;
         let newStarsValues = [];
         for (let i = 0; i < valueStars; i++) {
           newStarsValues.push("bi bi-star-fill");
         }
 
-        if (result.data.res.rating[0] % 1 !== 0) {
+        if (result.data.res.rating % 1 !== 0) {
           newStarsValues.push("bi bi-star-half");
         }
 
@@ -123,21 +124,21 @@ export function ViewPelicula() {
                     Reparto
                   </h5>
                   <small className="text-white">
-                    {actores.map((actor, index) => {
-                      return (
-                        <span key={index}>
-                          <a href="#!" className="text-white"> {/* TODO: CAMBIAR HREF */ }
-                            {actor.nombre}
-                          </a>
-                          <>
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                          </>
-                        </span>
-                      ) 
-                    })}
+                      {actores.map((actor, index) => {
+                        return (
+                          <span key={index}>
+                            <a href={"http://localhost:3000/veractor/" + actor.idActor} className="text-white">
+                              {actor.nombre}
+                            </a>
+                            <>
+                              &nbsp;
+                              &nbsp;
+                              &nbsp;
+                              &nbsp;
+                            </>
+                          </span>
+                        ) 
+                      })}
                   </small>
                 </div>
                 <div className="card-text" id="ActiveArea">
@@ -172,6 +173,7 @@ export function ViewPelicula() {
           </div>
         </div>
       </div>
+      <Comentario/>
       <div
         className="modal fade"
         id="exampleModal"

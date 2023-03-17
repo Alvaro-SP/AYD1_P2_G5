@@ -9,7 +9,7 @@ def getpeliporuser(request):
     idMovie = data['idmovie']
     
     #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
-    connection = pymysql.connect(host='localhost',user='myuser',password='24122001.',db='dbayd')
+    connection = pymysql.connect(host='localhost',user='root',password='secret',db='dbayd')
                         # charset='utf8mb4',
                         # cursorclass=pymysql.cursors.DictCursro
     # Ejecutar una consulta para obtener todas las peliculas
@@ -42,14 +42,13 @@ def getpeliporuser(request):
                 flag=True
 
             sql2 = '''
-                SELECT rating
-                FROM movie_rating, movie
-                LEFT JOIN film_cast ON movie.idmovie = film_cast.movie_idmovie
-                WHERE movie.idmovie =%s AND movie_rating.movie_idmovie =%s;
+                SELECT AVG(movie_rating.rating)
+                FROM movie_rating
+                WHERE movie_rating.movie_idmovie = %s;
             '''
-            cursor.execute(sql2, (idMovie, idUser))
-            result2 = cursor.fetchall()
-            movie_rating = result2
+            cursor.execute(sql2, (idMovie,))
+            result2 = cursor.fetchone()
+            movie_rating = (result2[0]) if result2 else 0
             #  LEFT JOIN movie_rating ON movie.idmovie = movie_rating.movie_idmovie
             for fila in result:
                 movie_poster, movie_id, movie_name, movie_director, movie_year, movie_summary,  actor_id, actor_name, actor_photo, image_id, image_link = fila

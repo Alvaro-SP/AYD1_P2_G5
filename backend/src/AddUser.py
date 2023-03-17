@@ -16,8 +16,8 @@ def add_user(request):
     try:
         conection = mysql.connector.connect(
             host="localhost",
-            user="myuser",
-            password="24122001.",
+            user="root",
+            password="secret",
             database="dbayd"
         )
         print("Conexión establecida correctamente.")

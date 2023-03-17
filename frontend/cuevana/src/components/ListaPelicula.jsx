@@ -36,7 +36,7 @@ export default function ListaPelicula() {
                 NumPages.push(NumPages.length + 1)
             }
 
-            setListadoGeneral(res.data.res)
+            setListadoGeneral(res.data.res);
             setValuesPages(NumPages);
         } else {
             toast.success("Error en la base", {
@@ -71,6 +71,10 @@ export default function ListaPelicula() {
         }
         setListado(seccionPeliculas)
     }
+
+    useEffect(() => {
+        paginarPeliculas(1)
+    }, [listadoGeneral])
 
     useEffect(() => {
     }, [listado])

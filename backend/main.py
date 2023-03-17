@@ -101,7 +101,7 @@ def agregar_comentario():
     return response
 
 #! Endpoint para obtener los comentarios de una pelicula
-@app.route('/get-comments', methods=['POST'])
+@app.route('/comments', methods=['POST'])
 def obtener_comentarios():
     resprev = get_comments(request)
     response = jsonify(resprev)

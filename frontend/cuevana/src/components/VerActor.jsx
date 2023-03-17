@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios'
+import {ViewPelicula} from "./ViewPelicula";
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,9 +27,12 @@ function VerActor() {
       const res = await axios.post("http://localhost:5000/info-actor", {
         id: id
       });
+
+      console.log(res.data)
+
       if (res.data.res !== false) {
         console.log(res.data.res)
-        setActorData(res.data.res);
+        setActorData(res.data);
       } else {
         console.log("no se obtuvo respuesta del servidor");
       }
@@ -47,20 +51,15 @@ function VerActor() {
           <p className="actor-info-text">{actorData.actor.summary}</p>
         </Col>
       </Row>
-      <Router>
-        <ListGroup className="actor-info-top-movies" variant="flush">
-          {actorData.movies.map((movie, index) => (
-            <ListGroup.Item key={index}>
-              <Link to={`/peliculas/${movie.id}`}><span>{movie.name}</span></Link>
-              <Badge pill variant="secondary">{movie.year}</Badge>
-            </ListGroup.Item>
-          ))}
-          <Outlet />
-        </ListGroup>
-        <Routes>
-          <Route path="/peliculas/:id" /*element={ <Pelicula /> }*/ />
-        </Routes>
-      </Router>
+      <ListGroup className="actor-info-top-movies" variant="flush">
+        {actorData.movies.map((movie, index) => (
+          <ListGroup.Item key={index}>
+            <Link to={`/watchMovie`} onClick={() => localStorage.setItem("idPelicula", movie.id)}><span>{movie.name}</span></Link>
+            <Badge pill variant="secondary">{movie.year}</Badge>
+          </ListGroup.Item>
+        ))}
+        <Outlet />
+      </ListGroup>
     </Container>
   );
 }
