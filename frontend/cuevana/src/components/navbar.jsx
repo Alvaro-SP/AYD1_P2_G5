@@ -25,6 +25,12 @@ export default function NavbarCueva() {
               <div className="position-sticky pt-3 sidebar-sticky">
                 <ul className="nav flex-column">
                   <li className="nav-item">
+                    <p href="#!" className="nav-link text-white" style={{ color: "white" }}>
+                      <i className="bi bi-person-circle"></i>
+                      &nbsp;{JSON.parse(localStorage.getItem("user")).name}
+                    </p>
+                  </li>
+                  <li className="nav-item">
                     <a href="http://localhost:3000" className="nav-link text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

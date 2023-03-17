@@ -14,7 +14,7 @@ def rate_movie(request):
         conection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="2412",
+            password="secret",
             database="dbayd"
         )
         print("Conexión establecida correctamente.")

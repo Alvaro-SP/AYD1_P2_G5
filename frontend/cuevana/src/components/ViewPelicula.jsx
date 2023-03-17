@@ -74,7 +74,7 @@ export function ViewPelicula() {
       }
       
       if (result.data.res.rating) {
-        let valueStars = result.data.res.rating / 1;
+        let valueStars = parseInt(result.data.res.rating) / 1;
         let newStarsValues = [];
         for (let i = 0; i < valueStars; i++) {
           newStarsValues.push("bi bi-star-fill");
