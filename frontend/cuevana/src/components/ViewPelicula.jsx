@@ -124,21 +124,21 @@ export function ViewPelicula() {
                     Reparto
                   </h5>
                   <small className="text-white">
-                    {actores.map((actor, index) => {
-                      return (
-                        <span key={index}>
-                          <a href={"http://localhost:3000/veractor/" + actor.idActor} className="text-white">
-                            {actor.nombre}
-                          </a>
-                          <>
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                          </>
-                        </span>
-                      ) 
-                    })}
+                      {actores.map((actor, index) => {
+                        return (
+                          <span key={index}>
+                            <a href={"http://localhost:3000/veractor/" + actor.idActor} className="text-white">
+                              {actor.nombre}
+                            </a>
+                            <>
+                              &nbsp;
+                              &nbsp;
+                              &nbsp;
+                              &nbsp;
+                            </>
+                          </span>
+                        ) 
+                      })}
                   </small>
                 </div>
                 <div className="card-text" id="ActiveArea">

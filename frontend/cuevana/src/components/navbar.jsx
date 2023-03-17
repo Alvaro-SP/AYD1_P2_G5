@@ -5,6 +5,8 @@ import { AddMovie } from "./AddMovie";
 import Watchlist from "./Watchlist";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ViewPelicula } from "./ViewPelicula";
+import VerActor from "./VerActor";
+
 export default function NavbarCueva() {
   useEffect(() => {
     if(localStorage.getItem("admin")){
@@ -23,7 +25,7 @@ export default function NavbarCueva() {
               <div className="position-sticky pt-3 sidebar-sticky">
                 <ul className="nav flex-column">
                   <li className="nav-item">
-                    <a href="./" className="nav-link text-white">
+                    <a href="http://localhost:3000" className="nav-link text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -38,7 +40,7 @@ export default function NavbarCueva() {
                     </a>
                   </li>
                   <li>
-                    <a href="./watchlist" className="nav-link text-white">
+                    <a href="http://localhost:3000/watchlist" className="nav-link text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -55,7 +57,7 @@ export default function NavbarCueva() {
                   <li>
                     {
                       (localStorage.getItem("admin") === "true") &&
-                        <a href="./addmovie" className="nav-link text-white">
+                        <a href="http://localhost:3000/addmovie" className="nav-link text-white">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -83,6 +85,8 @@ export default function NavbarCueva() {
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/addmovie" element={<AddMovie />} />
           <Route path="/watchMovie" element={<ViewPelicula />} />
+          <Route path="/veractor/:id" element={<VerActor />} />
+          <Route path="/watchMovie" element={ <ViewPelicula />} />
         </Routes>
       </Router>
     </>

@@ -11,7 +11,7 @@ def addwatchlist(request):
     idUser = data['iduser']
     idMovie = data['idmovie']
     #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
-    connection = pymysql.connect(host='localhost',user='root',password='secret',db='dbayd')
+    connection = pymysql.connect(host='localhost',user='root',password='2412',db='dbayd')
                         # charset='utf8mb4',
                         # cursorclass=pymysql.cursors.DictCursro
     # Ejecutar una consulta para obtener todas las peliculas

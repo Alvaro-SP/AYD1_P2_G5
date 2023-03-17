@@ -5,30 +5,30 @@ import toast, { Toaster } from "react-hot-toast";
 import Pelicula from "./Pelicula";
 
 export default function Watchlist() {
-  const [listado, setListado] = useState([]);
-  const [listadoGeneral, setListadoGeneral] = useState([]);
-  const [valuesPages, setValuesPages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [busqueda, setBusqueda] = useState("");
+  const [listado, setListado] = useState([])
+    const [listadoGeneral, setListadoGeneral] = useState([])
+    const [valuesPages, setValuesPages] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [busqueda, setBusqueda] = useState("")
 
   const cerrarsesion = () => {
     localStorage.setItem("ingreso", false);
     localStorage.setItem("user", null);
-    window.location.reload(false);
+    window.location.reload(false)
   };
-
   useEffect(() => {
     getPeliculas();
   }, []);
 
+
   const getPeliculas = async () => {
-    console.log(JSON.parse(localStorage.getItem("user")).id);
+    console.log(JSON.parse(localStorage.getItem("user")).id)
     const res = await axios.post("http://localhost:5000/verwatchlist", {
       iduser: JSON.parse(localStorage.getItem("user")).id,
     });
     if (res.data.res !== false) {
       setLoading(true);
-
+      
       let NumPages = [];
       for (let i = 1; i <= res.data.res.length / 5; i++) {
         NumPages.push(i);
@@ -74,8 +74,11 @@ export default function Watchlist() {
   };
 
   useEffect(() => {
-    paginarPeliculas(1);
-  }, [listado]);
+    paginarPeliculas(1)
+  }, [listadoGeneral])
+
+  useEffect(() => {
+  }, [listado])
 
   if (!loading) {
     return (
@@ -132,7 +135,7 @@ export default function Watchlist() {
 
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-dark wi text-white">
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Watchlist</h1>
+            <h1 className="h2">Peliculas</h1>
           </div>
         </main>
       </>
@@ -206,7 +209,7 @@ export default function Watchlist() {
             ))}
           </div>
           <div className="row">
-            <ul
+          <ul
               className="pagination justify-content-center pagination-lg flex-wrap"
               style={{ paddingTop: "2%" }}
             >

@@ -13,7 +13,7 @@ def promediototal(request):
         conection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="secret",
+            password="2412",
             database="dbayd"
         )
         print("Conexión establecida correctamente.")

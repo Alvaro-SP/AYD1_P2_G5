@@ -38,7 +38,7 @@ def cargamasiva(request):
     takeCSV(pathactor, pathpelicula, pathreparto, pathrecurso)
 
     #! █████████████████████ CONNECT WITH DATABASE:█████████████████████
-    connection = pymysql.connect(host='localhost',user='root',password='secret',db='dbayd')
+    connection = pymysql.connect(host='localhost',user='root',password='2412',db='dbayd')
                         # charset='utf8mb4',
                         # cursorclass=pymysql.cursors.DictCursro
     # Ejecutar la insercion
